@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
-const {pool} = require('./db')
+const pool = require('./db')
 
 
 const app = express()
