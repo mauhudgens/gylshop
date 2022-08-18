@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
+const {pool} = require('./db')
 
 
 const app = express()
@@ -16,6 +17,13 @@ app.get('/profile', (req, res) => {
     res.render('profile', {
         name: 'Ivan',
         age: 28
+    })
+})
+
+app.get('/ping', async (req, res) => {
+    const result = await pool.query(`SELECT NOW()`)
+    res.send({
+        message: result.rows[0].now
     })
 })
 
