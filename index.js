@@ -21,9 +21,9 @@ app.get('/profile', (req, res) => {
 })
 
 app.get('/ping', async (req, res) => {
-    const result = await pool.query(`SELECT NOW()`)
+    const result = await pool.query(`SELECT proyecto FROM public."Proyecto_ubicacion"`)
     res.send({
-        message: result.rows[0].now
+        message: result.rows
     })
 })
 
