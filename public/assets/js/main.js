@@ -5,7 +5,7 @@
 * License: https://bootstrapmade.com/license/
 */
 function init(){
-  
+
 }
 
 (function() {
@@ -35,7 +35,7 @@ function init(){
   }
 
   /**
-   * Easy on scroll event listener 
+   * Easy on scroll event listener
    */
   const onscroll = (el, listener) => {
     el.addEventListener('scroll', listener)
@@ -323,91 +323,48 @@ function init(){
 
   console.log("Hola Mundo")
 
-  $('#combo').dxSelectBox({
-    items: ["PROYECTO1", "PROYECTO2", "PROYECTO3", "PROYECTO4", "PROYECTO5"]
-  });
+  // var text_nombre = $("#nombre").dxTextBox({
+  // }).dxTextBox("instance")
 
-  const employee = {
-    ID: 1,
-    FirstName: 'John',
-    LastName: 'Heart',
-    Position: 'CEO',
-    BirthDate: '1964/03/16',
-    HireDate: '1995/01/15',
-    Notes: 'John has been in the Audio/Video industry since 1990. He has led DevAv as its CEO since 2003.\r\n\r\nWhen not working hard as the CEO, John loves to golf and bowl. He once bowled a perfect game of 300.',
-    Address: '351 S Hill St., Los Angeles, CA',
-    Phone: '360-684-1334',
-    Email: 'jheart@dx-email.com',
-  };
-  
-  const positions = [
-    'HR Manager',
-    'IT Manager',
-    'CEO',
-    'Controller',
-    'Sales Manager',
-    'Support Manager',
-    'Shipping Manager',
-  ];
+  // var text_apellido = $("#apellido").dxTextBox({
+  // }).dxTextBox("instance")
 
-  
-  // $('#prueba_div').dxForm({
-  //   colCount: 2,
-  //   formData: employee,
-  //   items: [{
-  //     dataField: 'FirstName',
-  //     editorOptions: {
-  //       disabled: true,
-  //     },
-  //   }, {
-  //     dataField: 'Position',
-  //     editorType: 'dxSelectBox',
-  //     editorOptions: {
-  //       items: positions,
-  //       searchEnabled: true,
-  //       value: '',
-  //     },
-  //     validationRules: [{
-  //       type: 'required',
-  //       message: 'Position is required',
-  //     }],
-  //   }, {
-  //     dataField: 'LastName',
-  //     editorOptions: {
-  //       disabled: true,
-  //     },
-  //   }, {
-  //     dataField: 'HireDate',
-  //     editorType: 'dxDateBox',
-  //     editorOptions: {
-  //       value: null,
-  //       width: '100%',
-  //     },
-  //     validationRules: [{
-  //       type: 'required',
-  //       message: 'Hire date is required',
-  //     }],
-  //   }, {
-  //     dataField: 'BirthDate',
-  //     editorType: 'dxDateBox',
-  //     editorOptions: {
-  //       disabled: true,
-  //       width: '100%',
-  //     },
-  //   }, 'Address', {
-  //     colSpan: 2,
-  //     dataField: 'Notes',
-  //     editorType: 'dxTextArea',
-  //     editorOptions: {
-  //       height: 90,
-  //     },
-  //   }, {
-  //     dataField: 'Phone',
-  //     editorOptions: {
-  //       mask: '+1 (X00) 000-0000',
-  //       maskRules: { X: /[02-9]/ },
-  //     },
-  //   }, 'Email'],
+  //   $("#button").dxButton({
+  //     text: "Seleccionar cuenta desde mapa",
+  //     type: "default",
+  //     validationGroup: "groupName",
+  //     onClick: function () {
+  //       obtenerFecha()
+  //       console.log(text_nombre.option('value'))
+  //       console.log(text_apellido.option('value'))
+  //     }
   // });
 
+
+    async function obtenerFecha(){
+      const res = await fetch('http://localhost:3000/tasks',{
+      })
+      const data = await res.json()
+      $('#combo').dxSelectBox({
+        dataSource: data.rows,
+        valueExpr: "proyecto",
+        displayExpr: "proyecto",
+      });
+      console.log(data.rows)
+    }
+
+    // const obtenerFecha = async (id) => {
+    //   const res = await fetch(`http://localhost:3000/tasks/${id}`,{
+    //   })
+    //   const data = await res.json()
+    //   $('#combo').dxSelectBox({
+    //     dataSource: data.nombre,
+    //     valueExpr: "nombre",
+    //     displayExpr: "nombre",
+    //   });
+    //   console.log(data)
+    // }
+
+
+    obtenerFecha()
 })();

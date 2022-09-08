@@ -3,6 +3,9 @@ const path = require('path')
 const ejs = require('ejs')
 const pool = require('./db')
 
+const taskRoutes = require('./routes/tasks.routes')
+
+
 
 const app = express()
 
@@ -20,16 +23,17 @@ app.get('/profile', (req, res) => {
     })
 })
 
-app.get('/ping', async (req, res) => {
-    const result = await pool.query(`SELECT proyecto FROM public."Proyecto_ubicacion"`)
-    res.send({
-        message: result.rows
-    })
-})
+
+// app.get('/ping', async (req, res) => {
+//     const result = await pool.query(`SELECT * FROM relacional.EMPLEADOS`)
+//     res.send({
+//         rows: result.rows
+//     })
+// })
 
 //archivos estaticos
 app.use(express.static('public'))
-
+app.use(taskRoutes)
 //inicio servidor
 app.listen(process.env.PORT || 3000)
 console.log('Server on port', process.env.PORT || 3000)
