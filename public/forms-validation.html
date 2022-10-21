@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Forms / Validation - Captura Bootstrap Template</title>
+  <title>Descripción de mapas</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/22.1.4/css/dx.light.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/22.1.4/js/dx.all.js"></script>
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/vfs_fonts.js"></script>
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -118,19 +119,19 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Característica del Inmueble</h1>
+      <h1>Descripción de mapas</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
           <li class="breadcrumb-item">Forms</li>
-          <li class="breadcrumb-item active">Característica del Inmueble</li>
+          <li class="breadcrumb-item active">Descripción de mapas</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
     <section class="section">
       <div class="card">
         <div class="card-body">
-          <h4>Seleccione el Área</h4>
+          <h4>Seleccione el proyecto</h4>
           <div id='combo'>
         </div>
       </div>
@@ -174,89 +175,10 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/descripcion.js"></script>
   <script>
 
-    $('#combo').dxSelectBox({
-      items: ["Molienda", "Cribado y limpieza", "Envasado"]
-    });
 
-    const employee = {
-      ID: 1,
-      FirstName: 'John',
-      LastName: 'Heart',
-      Position: 'CEO',
-      BirthDate: '1964/03/16',
-      HireDate: '1995/01/15',
-      Notes: 'John has been in the Audio/Video industry since 1990. He has led DevAv as its CEO since 2003.\r\n\r\nWhen not working hard as the CEO, John loves to golf and bowl. He once bowled a perfect game of 300.',
-      Address: '351 S Hill St., Los Angeles, CA',
-      Phone: '360-684-1334',
-      Email: 'jheart@dx-email.com',
-    };
-
-    const positions = [
-      'HR Manager',
-      'IT Manager',
-      'CEO',
-      'Controller',
-      'Sales Manager',
-      'Support Manager',
-      'Shipping Manager',
-    ];
-
-    $('#form_caracteristica').dxForm({
-      colCount: 2,
-      formData: employee,
-      items: [
-        {
-          dataField: 'Elemento Constructivo',
-          editorOptions: {
-            disabled: false,
-          },
-        },
-        {
-          dataField: 'Acividad o Función',
-          editorOptions: {
-            disabled: false,
-          },
-        },
-        {
-          dataField: 'Dispositivos de Seguridad',
-          editorOptions: {
-            disabled: false,
-          },
-        },
-        {
-          dataField: 'Señalamientos',
-          editorOptions: {
-            disabled: false,
-          },
-        },
-        {
-          dataField: 'Equipos Contra Incendios',
-          editorOptions: {
-            disabled: false,
-          },
-        },         {
-          dataField: 'Tipo de Piso',
-          editorOptions: {
-            disabled: false,
-          },
-        },
-        {
-          dataField: 'Tipo de Iluminación',
-          editorOptions: {
-            disabled: false,
-          },
-        },
-        {
-          dataField: 'Mobiliario y Accesorios',
-          editorOptions: {
-            disabled: false,
-          },
-        }, 
-      ],
-    });
   </script>
 
 </body>
