@@ -342,7 +342,7 @@ function init(){
 
 
     async function obtenerProyectos(){
-      const res = await fetch('http://localhost:3000/tasks',{
+      const res = await fetch('https://appnodepostgres-production.up.railway.app/tasks',{
       })
       const data = await res.json()
       $('#combo').dxSelectBox({
@@ -358,11 +358,12 @@ function init(){
     }
 
     const litologia = async (id) => {
-      const res = await fetch(`http://localhost:3000/desc_litologia/${id}`,{
+      const res = await fetch(`https://appnodepostgres-production.up.railway.app/desc_litologia/${id}`,{
       })
       const data = await res.json()
       
       console.log(data)
+      Swal.fire('Any fool can use a computer')
       PDFMake_2_2020(data)
     }
 
