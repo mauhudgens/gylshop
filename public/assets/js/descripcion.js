@@ -344,7 +344,6 @@ function init(){
     async function obtenerProyectos(){
       const res = await fetch('https://appnodepostgres-production.up.railway.app/tasks',{
       })
-      res.setHeader("Access-Control-Allow-Origin", "*")
       const data = await res.json()
       $('#combo').dxSelectBox({
         dataSource: data.rows,
@@ -361,8 +360,6 @@ function init(){
     const litologia = async (id) => {
       const res = await fetch(`https://appnodepostgres-production.up.railway.app/desc_litologia/${id}`,{
       })
-      res.setHeader("Access-Control-Allow-Origin", "*")
-
       const data = await res.json()
       
       console.log(data)

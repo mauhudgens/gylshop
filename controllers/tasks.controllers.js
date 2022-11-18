@@ -4,6 +4,7 @@ const getAllTask = async(req, res, next) => {
     try {
         //throw new Error('Error en getAllTask')
         const result = await pool.query(`SELECT * FROM public."Proyecto_ubicacion"`)
+        res.setHeader("Access-Control-Allow-Origin", "*")
         res.send({
             rows: result.rows
         })
@@ -96,6 +97,7 @@ const litologia = async(req, res, next) => {
         const { id } = req.params
 
         const result = await pool.query('select a.roca , (select descripcion from datos.componentes where componentes = a.roca) as descripcion_clase, a.litologia , (select descripcion from datos.componentes where componentes = a.litologia) as descripcion_tipo from zmg.litologia_jalisco a inner join "Proyecto_ubicacion" b on ST_Intersects(a.geom, b.geom)  and st_area(st_intersection(b.geom, a.geom))/st_area(b.geom) > .6 where b.id = $1', [id]);
+        res.setHeader("Access-Control-Allow-Origin", "*")
 
         console.log(result)
 
