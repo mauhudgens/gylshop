@@ -340,9 +340,10 @@ function init(){
   //     }
   // });
 
+  //http://localhost:3000
 
     async function obtenerFecha(){
-      const res = await fetch('https://appnodepostgres-production.up.railway.app/tasks',{
+      const res = await fetch('http://localhost:3000/tasks',{
       })
       const data = await res.json()
       $('#combo').dxSelectBox({

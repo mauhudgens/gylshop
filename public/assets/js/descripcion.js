@@ -321,28 +321,8 @@ function init(){
     }, 200);
   }
 
-  console.log("Hola Mundo")
-
-  // var text_nombre = $("#nombre").dxTextBox({
-  // }).dxTextBox("instance")
-
-  // var text_apellido = $("#apellido").dxTextBox({
-  // }).dxTextBox("instance")
-
-  //   $("#button").dxButton({
-  //     text: "Seleccionar cuenta desde mapa",
-  //     type: "default",
-  //     validationGroup: "groupName",
-  //     onClick: function () {
-  //       obtenerFecha()
-  //       console.log(text_nombre.option('value'))
-  //       console.log(text_apellido.option('value'))
-  //     }
-  // });
-
-
     async function obtenerProyectos(){
-      const res = await fetch('https://appnodepostgres-production.up.railway.app/tasks',{
+      const res = await fetch('http://localhost:3000/tasks',{
       })
       const data = await res.json()
       $('#combo').dxSelectBox({
@@ -350,48 +330,321 @@ function init(){
         valueExpr: "id",
         displayExpr: "proyecto",
         onValueChanged: function (e) {
+          
+        
+        
+          
           console.log(e.value)
-          litologia(e.value)
+
+          var promises = [d_m1_descripcion(1),d_m1_datos(e.value), d_m2_descripcion(3),d_m2_datos(e.value), d_m3_descripcion(2),d_m3_datos_1(e.value), d_m3_datos_2(e.value), 
+            d_m4_descripcion(4), d_m4_datos(e.value), d_m5_descripcion(5), d_m5_datos(e.value), d_m6_descripcion(7), d_m6_datos(e.value), d_m7_descripcion(9), d_m7_datos(e.value)];
+                Promise.all(promises).then(results => {
+
+                  Generar_PDF(results[0], results[1], results[2], results[3], results[4], results[5], results[6], results[7], results[8], results[9], results[10], 
+                    results[11], results[12], results[13], results[14]);
+                }).catch(reason => {
+                    // $.LoadingOverlay("hide");
+                    // devalert('Error al cargar las imagenes');
+                    Generar_PDF("", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                });
       }
       });
-      console.log(data.rows)
     }
 
-    const litologia = async (id) => {
-      const res = await fetch(`https://appnodepostgres-production.up.railway.app/desc_litologia/${id}`,{
+    
+    
+    
+
+    const d_m1_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m1_descripcion/${id}`,{
       })
       const data = await res.json()
-      
-      console.log(data)
-      Swal.fire('Any fool can use a computer')
-      PDFMake_2_2020(data)
+      return data
     }
 
+    const d_m1_datos = async (id) => {
+      const res = await fetch(`http://localhost:3000/m1_datos/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m2_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m2_descripcion/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m2_datos = async (id) => {
+      const res = await fetch(`http://localhost:3000/m2_datos/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+    const d_m3_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m3_descripcion/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m3_datos_1 = async (id) => {
+      const res = await fetch(`http://localhost:3000/m3_datos_1/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+    const d_m3_datos_2 = async (id) => {
+      const res = await fetch(`http://localhost:3000/m3_datos_2/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+    const d_m4_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m4_descripcion/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m4_datos = async (id) => {
+      const res = await fetch(`http://localhost:3000/m4_datos/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m5_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m5_descripcion/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m5_datos = async (id) => {
+      const res = await fetch(`http://localhost:3000/m5_datos/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m6_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m6_descripcion/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m6_datos = async (id) => {
+      const res = await fetch(`http://localhost:3000/m6_datos/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m7_descripcion = async (id) => {
+      const res = await fetch(`http://localhost:3000/m7_descripcion/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
+
+    const d_m7_datos = async (id) => {
+      const res = await fetch(`http://localhost:3000/m7_datos/${id}`,{
+      })
+      const data = await res.json()
+      return data
+    }
 
     obtenerProyectos()
 
     // playground requires you to assign document definition to a variable called dd
-function PDFMake_2_2020(datos) {
-  var Aprobacion = {
+  async function Generar_PDF(d_m1_descripcion, d_m1_datos, d_m2_descripcion, d_m2_datos, d_m3_descripcion, d_m3_datos_1, d_m3_datos_2, 
+  d_m4_descripcion, d_m4_datos, d_m5_descripcion, d_m5_datos, d_m6_descripcion, d_m6_datos,  d_m7_descripcion, d_m7_datos, img) {
+  let descripcion_completa = {
       pageSize: 'LETTER',
       pageMargins: [40, 40, 40, 40],
       info: {
     title: 'Descripción Mapas',
-    // author: 'Geomatica',
-    // subject: 'subject of document',
-    // keywords: 'keywords for document',
   },
 
       content: [
+////////////////////////////////////UBICACION////////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 1', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
 
         {
-          text: 'La litología es la parte de la geología que se encarga del estudio de las rocas, el tamaño de grano, de las partículas y sus características físicas y químicas. La litología es fundamental para entender cómo es el relieve, ya que dependiendo de la naturaleza de las rocas se comportarán de una manera concreta ante los empujes tectónicos, los agentes de erosión y transporte y los diferentes climas de la tierra.'+
-          'En el área de estudio se identificó '+datos.roca+' ('+datos.descripcion_clase+'), de tipo '+datos.litologia+', ('+datos.descripcion_tipo+'). Es importante considerar dentro del estudio de mecánica de suelos esta composición, para identificar el tipo de cimentación a utilizar en la construcción del proyecto.',
+          text: '\n'+d_m1_descripcion.descripcion_de_mapa+'\n\n',
           alignment: 'justify',
           style: 'header'
-      },
+        },
 
-          //leyenda pendiente de definir{ text: '\n"2020, año de la acción por el clima, de la eliminación de la violencia contra las mujeres y su igualdad salarial"', bold: true, alignment: 'center', color: '#807A79', fontSize: 10 },
+        {
+          text: 'Descripcion del Proyecto ('+d_m1_datos.proyecto+') Ubicado en; ('+d_m1_datos.ubicacion+').\n\n', bold: true,
+          alignment: 'justify',
+          style: 'header'
+        },
+        // {
+        //   image: 'https://srv739.hstgr.io:7443/1d0000ff154e8036/files/public_html/assets/img/proyectos_img/Ubicaci%C3%B3n_AAAG.jpeg'
+        // },
+        // {
+        //   image: await getBase64ImageFromURL(
+        //     "https://srv739.hstgr.io:7443/3d1435ae6301ba78/files/public_html/assets/img/proyectos_img/Ubicaci%C3%B3n_AAAG.jpeg"
+        //   )
+        // } ,
+
+        
+         
+//////////////////////////////////RECURSOS EXTERNOS////////////////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 2', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
+
+        {
+          text: '\n'+d_m2_descripcion.descripcion_de_mapa+'\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: 'De acuerdo a la cartografía del área de estudio se identifican ('+d_m2_datos.unidades+') unidades  de tipo ('+d_m2_datos.tipo_recurso+'), como se muestra en el siguiente mapa.\n\n', bold: true,
+          alignment: 'justify',
+          style: 'header'
+        },
+
+//////////////////////////////////INFRAESTRUCTURA HIDRAULICA/////////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 3', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
+
+        {
+          text: '\n'+d_m3_descripcion.descripcion_de_mapa+'\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: 'En caso de algún incidente, es importante considerar la infraestructura existen en el area de estudio la cual se encuentra de de la siguiente manera;\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: d_m3_datos_1.cobertura+'\n', bold: true, 
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: d_m3_datos_2.cobertura+'\n\n', bold: true, 
+          alignment: 'justify',
+          style: 'header'
+        },
+
+/////////////////////////////////////////LITOLOGIA//////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 4', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
+
+        {
+          text: '\n'+d_m4_descripcion.descripcion_de_mapa+'\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+
+        {
+          text: 'En el área de estudio se identificó:',
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: d_m4_datos.roca+' ('+d_m4_datos.descripcion_clase+'), de tipo '+d_m4_datos.litologia+', ('+d_m4_datos.descripcion_tipo+').', bold: true,
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: 'Es importante considerar dentro del estudio de mecánica de suelos esta composición, para identificar el tipo de cimentación a utilizar en la construcción del proyecto.\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+//////////////////////////////GEOMORFOLOGIA///////////////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 5', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
+
+        {
+          text: '\n'+d_m5_descripcion.descripcion_de_mapa+'\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+
+        {
+          text: 'En el área de estudio se identificó la zona como:',
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: d_m5_datos.descripcion_tipo+'\n\n', bold: true,
+          alignment: 'justify',
+          style: 'header'
+        },
+/////////////////////////////////////EDAFOLOGIA////////////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 6', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
+
+        {
+          text: '\n'+d_m6_descripcion.descripcion_de_mapa+'\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+
+        {
+          text: 'En el área de estudio se identificó:',
+          alignment: 'justify',
+          style: 'header'
+        },
+        {
+          text: '('+d_m6_datos.tipo+') el cual es un ('+d_m6_datos.descripcion_tipo+').\n\n', bold: true,
+          alignment: 'justify',
+          style: 'header'
+        },
+/////////////////////////////////////USO DE SUELO Y VEGETACION////////////////////////////////////////////////////////////////////////////////////////////////
+        {
+          text: 'Mapa 7', bold: true, 
+          alignment: 'left',
+          style: 'header'
+        },
+
+        {
+          text: '\n'+d_m7_descripcion.descripcion_de_mapa+'\n\n',
+          alignment: 'justify',
+          style: 'header'
+        },
+
+        {
+          text: 'En el área de estudio se identificó como',
+          alignment: 'justify',
+          style: 'header'
+        },
+        // {
+        //   text: '('+d_m6_datos.tipo+') el cual es un ('+d_m6_datos.descripcion_tipo+').\n\n', bold: true,
+        //   alignment: 'justify',
+        //   style: 'header'
+        // },
+
+
+
 
 
       ],
@@ -406,7 +659,9 @@ function PDFMake_2_2020(datos) {
 
 
   // abrir el PDF en una nueva ventana
-  pdfMake.createPdf(Aprobacion).open();
+  pdfMake.createPdf(descripcion_completa).open();
+
+  
 
   // imprimir el PDF
   //pdfMake.createPdf (Dictamen).print ();
@@ -416,5 +671,28 @@ function PDFMake_2_2020(datos) {
 
 }
 
+function getBase64ImageFromURL(url) {
+  return new Promise((resolve, reject) => {
+    var img = new Image();
+    img.setAttribute("crossOrigin", "anonymous");
+    img.onload = () => {
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png");
+      resolve(dataURL);
+    };
+    img.onerror = error => {
+      reject(error);
+    };
+    img.src = url;
+  });
+}
+
+
+
 
 })();
+
