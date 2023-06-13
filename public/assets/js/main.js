@@ -321,51 +321,17 @@ function init(){
     }, 200);
   }
 
-  console.log("Hola Mundo")
-
-  // var text_nombre = $("#nombre").dxTextBox({
-  // }).dxTextBox("instance")
-
-  // var text_apellido = $("#apellido").dxTextBox({
-  // }).dxTextBox("instance")
-
-  //   $("#button").dxButton({
-  //     text: "Seleccionar cuenta desde mapa",
-  //     type: "default",
-  //     validationGroup: "groupName",
-  //     onClick: function () {
-  //       obtenerFecha()
-  //       console.log(text_nombre.option('value'))
-  //       console.log(text_apellido.option('value'))
-  //     }
-  // });
-
-  //http://localhost:3000
-
     async function obtenerFecha(){
       const res = await fetch('http://localhost:3000/tasks',{
       })
       const data = await res.json()
-      $('#combo').dxSelectBox({
-        dataSource: data.rows,
-        valueExpr: "proyecto",
-        displayExpr: "proyecto",
-      });
+      // $('#combo').dxSelectBox({
+      //   dataSource: data.rows,
+      //   valueExpr: "proyecto",
+      //   displayExpr: "proyecto",
+      // });
       console.log(data.rows)
     }
-
-    // const obtenerFecha = async (id) => {
-    //   const res = await fetch(`http://localhost:3000/tasks/${id}`,{
-    //   })
-    //   const data = await res.json()
-    //   $('#combo').dxSelectBox({
-    //     dataSource: data.nombre,
-    //     valueExpr: "nombre",
-    //     displayExpr: "nombre",
-    //   });
-    //   console.log(data)
-    // }
-
-
     obtenerFecha()
+
 })();
