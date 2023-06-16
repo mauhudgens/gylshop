@@ -1,4 +1,29 @@
 .container-ventas {
     padding: 3em;
-    border: 1px solid #000000;
+}
+
+.container-img-description {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2em;
+}
+
+.container-img {
+    width: 50%;
+}
+
+.container-description {
+    width: 50%;
+}
+
+.precio-descripcion {
+    text-align: center;
+    border: 1px solid #b9b9b9;
+    width: 80px;
+    font-size: 24px;
+    padding: 3px;
+}
+
+.container-precio-description{
+    padding-top: 2em;
 }
