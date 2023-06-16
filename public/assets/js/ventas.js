@@ -1,19 +1,71 @@
 
 document.getElementById("id_vista_ventas").onclick = function () {
-    form_datos_generales()
+    vistaVentas()
 }
 
-function form_datos_generales(data, insertupdate) {
+function vistaVentas() {
 
-    $("#vista_general").html('<div class="container-ventas">'+
-    '<div id="contenido_vista_general"/><div id="button_general"/>'+
-    '</div>');
-    $("#contenido_vista_general").dxDataGrid({
+    $("#vista_general").html('<div class="container-ventas">' +
+        '<div class="container-img-description">' +
+        '<div class="container-img"><img  style="width:250px; height:250px;" src="../assets/img/logo_gyl.jpg"></img></div>' +
+        '<div class="container-description">' +
+        '<div id= "form_descripcion" ></div>' +
+        '<div class="container-precio-description"><p class="precio-descripcion">$500<p><div><div id="select_empleados"></div></div></div>' +
+        '</div>' +
+        '</div>' +
+        '<div id="tabla_productos"/><div id="button_general"/>' +
+        '</div>');
+
+
+    $('#form_descripcion').dxForm({
+        colCount: 1,
+        labelLocation: "top",
+        labelMode: "outside",
+        items: [
+            {
+                dataField: "id",
+                label: { text: "Id" },
+                visible: false,
+                editorOptions: {
+
+                }
+            },
+            {
+                dataField: "nombre",
+                label: { text: "Producto" },
+                visible: true,
+                editorOptions: {
+
+                }
+            },
+            {
+                dataField: "descripción",
+                label: { text: "Descripción" },
+                alignment: 'center',
+                editorOptions: {
+
+                }
+            },
+        ],
+    }).dxForm("instance");
+
+    $('#select_empleados').dxSelectBox({
+        placeholder: 'Selecciona el empleado',
+        items: ["EMPLEADO1", "EMPLEADO2", "EMPLEADO3", "EMPLEADO4", "EMPLEADO5"],
+        visible: true,
+        showClearButton: true,
+        onValueChanged(e) {
+
+        }
+    }).dxSelectBox("instance");
+
+    $("#tabla_productos").dxDataGrid({
         dataSource: null,
         columnAutoWidth: false,
         showColumnLines: false,
         showRowLines: true,
         visible: true,
+        height:200,
         // rowAlternationEnabled: true,
         showBorders: true,
         columns: [
