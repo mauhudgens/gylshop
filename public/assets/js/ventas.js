@@ -7,10 +7,10 @@ function vistaVentas() {
 
     $("#vista_general").html('<div class="container-ventas">' +
         '<div class="container-img-description">' +
-        '<div class="container-img"><img  style="width:250px; height:250px;" src="../assets/img/logo_gyl.jpg"></img></div>' +
+        '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
         '<div class="container-description">' +
         '<div id= "form_descripcion" ></div>' +
-        '<div class="container-precio-description"><p class="precio-descripcion">$500<p><div><div id="select_empleados"></div></div></div>' +
+        '<div class="container-precio-description"><p class="precio-descripcion">$500.00<p><div><div id="select_empleados"></div></div></div>' +
         '</div>' +
         '</div>' +
         '<div id="tabla_productos"/><div id="button_general"/>' +
@@ -43,7 +43,7 @@ function vistaVentas() {
                 label: { text: "Descripción" },
                 alignment: 'center',
                 editorOptions: {
-
+                    height: 110
                 }
             },
         ],
@@ -65,7 +65,7 @@ function vistaVentas() {
         showColumnLines: false,
         showRowLines: true,
         visible: true,
-        height:200,
+        height:300,
         // rowAlternationEnabled: true,
         showBorders: true,
         columns: [
@@ -106,7 +106,29 @@ function vistaVentas() {
 
         selection: {
             mode: "single"
-        }
+        },
+        editing: {
+            mode: "row",
+            allowAdding: true,
+            allowUpdating: true,
+            allowDeleting: true,
+            useIcons: true,
+            texts: {
+                addRow: "Agregar nuevo registro",
+                cancelAllChanges: "Descartar cambios",
+                cancelRowChanges: "Cancelar",
+                confirmDeleteMessage: "¿Seguro que quieres eliminar este registro?",
+                confirmDeleteTitle: "Advertencia",
+                deleteRow: "Eliminar",
+                editRow: "Editar",
+                saveAllChanges: "Guardar cambios",
+                saveRowChanges: "Guardar",
+                undeleteRow: "Recuperar",
+                validationCancelChanges: "Cancelar cambios",
+                cancel: "Cancelar",
+                ok: "Ok"
+            },
+        },
 
     }).dxDataGrid("instance")
 

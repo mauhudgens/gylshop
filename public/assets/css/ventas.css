@@ -1,5 +1,32 @@
+/* TABLAS  */
+
+.dx-gridbase-container > .dx-datagrid-rowsview.dx-scrollable {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    /* border-radius: 11px; */
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    display: flex;
+}
+
+.dx-texteditor.dx-editor-outlined {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+}
+
+.dx-datagrid-borders > .dx-datagrid-filter-panel, .dx-datagrid-borders > .dx-datagrid-headers {
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-top: 1px solid #d9d9d9;
+    background-color: #cca3a3;
+    color: #ffffff;
+}
+
+/* VENTAS */
+
 .container-ventas {
-    padding: 3em;
+    padding: 1em;
 }
 
 .container-img-description {
@@ -9,21 +36,26 @@
 }
 
 .container-img {
-    width: 50%;
+    justify-content: center;
+    display: flex;
+    margin-right: 5%;
+    border-radius: 20px;
+    width: 40%;
+    border: 1px solid #b9b9b9;
 }
 
 .container-description {
-    width: 50%;
+    width: 60%;
 }
 
 .precio-descripcion {
-    text-align: center;
-    border: 1px solid #b9b9b9;
-    width: 80px;
+    text-align: left;
+    /* border: 1px solid #b9b9b9; */
+    min-width: 90px;
     font-size: 24px;
-    padding: 3px;
+    padding: 0px;
 }
 
 .container-precio-description{
-    padding-top: 2em;
+    padding-top: 1em;
 }
