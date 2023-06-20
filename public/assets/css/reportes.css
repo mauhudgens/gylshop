@@ -1,0 +1,14 @@
+.container-filtro-fecha {
+    width: 50%;
+    display: flex;
+}
+
+.btn-reportes {
+    height: 35px;
+    margin-top: 1.5em;
+    margin-left: 1em;
+    background-color: #cca3a3;
+    border-radius: 11px;
+    color: #ffffff;
+}
+
