@@ -321,17 +321,5 @@ function init(){
     }, 200);
   }
 
-    async function obtenerFecha(){
-      const res = await fetch('http://localhost:3000/tasks',{
-      })
-      const data = await res.json()
-      // $('#combo').dxSelectBox({
-      //   dataSource: data.rows,
-      //   valueExpr: "proyecto",
-      //   displayExpr: "proyecto",
-      // });
-      console.log(data.rows)
-    }
-    obtenerFecha()
-
+    
 })();

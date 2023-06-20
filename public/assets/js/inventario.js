@@ -1,10 +1,23 @@
 
 document.getElementById("id_vista_inventario").onclick = function () {
-    vistaInventario()
+    obtenerProductos()
 }
 
-function vistaInventario() {
+async function obtenerProductos(){
+      const res = await fetch('http://localhost:3000/traerInventario',{
+      })
+      const data = await res.json()
+      console.log(data.rows)
+      vistaInventario(data.rows)
+    }
 
+function vistaInventario(productos) {
+    // var productos = [{id: 1,
+    //     descripcion:"Jeans color azúl talla S",        
+    //     nombre: "Jeans",
+    //     precio: 500,
+    //     cantidad: 1,
+    //     codigo:"0525"}]
     $("#vista_general").html('<div class="">' +
         // '<div class="container-img-description">' +
         // '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
@@ -60,7 +73,7 @@ function vistaInventario() {
     // }).dxSelectBox("instance");
 
     $("#tabla_productos").dxDataGrid({
-        dataSource: null,
+        dataSource: productos,
         columnAutoWidth: false,
         showColumnLines: false,
         showRowLines: true,
@@ -95,6 +108,11 @@ function vistaInventario() {
                 caption: "Cantidad",
                 alignment: 'center',
             },
+            {
+                dataField: "codigo",
+                caption: "Código",
+                alignment: 'center',
+            },
         ],
 
         onSelectionChanged: function (selectedItems) {
@@ -113,9 +131,9 @@ function vistaInventario() {
             mode: "infinite"
         },
 
-        selection: {
-            mode: "single"
-        },
+        // selection: {
+        //     mode: "single"
+        // },
         searchPanel: {
             visible: true,
             width: 240,
@@ -123,7 +141,7 @@ function vistaInventario() {
         },
         "export": {
             enabled: true,
-            fileName: "Puntos al" + new Date().toDateString(),
+            fileName: "Inventario",
             allowExportSelectedData: true
         },
         editing: {

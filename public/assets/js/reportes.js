@@ -4,7 +4,15 @@ document.getElementById("id_vista_reportes").onclick = function () {
 }
 
 function vistaReportes() {
-
+    var venta = [{id: 1,
+        descripcion:"Jeans color azúl talla S",        
+        nombre: "Jeans",
+        precio: 500,
+        cantidad: 1,
+        fecha_inicio: "20/06/23",
+        fecha_fin: "21/06/23",
+        total:"$500.00",
+        empleado: "EMPLEADO1"}]
     $("#vista_general").html('<div class="">' +
         // '<div class="container-img-description">' +
         // '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
@@ -64,7 +72,7 @@ function vistaReportes() {
     // }).dxSelectBox("instance");
 
     $("#tabla_productos").dxDataGrid({
-        dataSource: null,
+        dataSource: venta,
         columnAutoWidth: false,
         showColumnLines: false,
         showRowLines: true,
@@ -95,7 +103,7 @@ function vistaReportes() {
                 alignment: 'center',
             },
             {
-                dataField: "vendedor",
+                dataField: "empleado",
                 caption: "Vendedor",
                 alignment: 'center',
             },

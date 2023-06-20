@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const { getAllTask} = require('../controllers/tasks.controllers')
+const { traerInventario} = require('../controllers/tasks.controllers')
 
 const router = Router();
 
-router.get('/tasks', getAllTask)
+router.get('/traerInventario', traerInventario)
 
 module.exports = router;

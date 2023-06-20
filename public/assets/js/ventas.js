@@ -5,6 +5,14 @@ document.getElementById("id_vista_ventas").onclick = function () {
 
 function vistaVentas() {
 
+    var venta = [{id: 1,
+    descripcion:"Jeans color azúl talla S",        
+    nombre: "Jeans",
+    precio: 500,
+    cantidad: 1}]
+
+    console.log(venta)
+
     $("#vista_general").html('<div class="container-ventas">' +
         '<div class="container-img-description">' +
         '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
@@ -27,7 +35,7 @@ function vistaVentas() {
                 label: { text: "Id" },
                 visible: false,
                 editorOptions: {
-
+                    value: venta[0].id
                 }
             },
             {
@@ -35,7 +43,7 @@ function vistaVentas() {
                 label: { text: "Producto" },
                 visible: true,
                 editorOptions: {
-
+                    value: venta[0].nombre
                 }
             },
             {
@@ -43,6 +51,7 @@ function vistaVentas() {
                 label: { text: "Descripción" },
                 alignment: 'center',
                 editorOptions: {
+                    value: venta[0].descripcion,
                     height: 110
                 }
             },
@@ -60,7 +69,7 @@ function vistaVentas() {
     }).dxSelectBox("instance");
 
     $("#tabla_productos").dxDataGrid({
-        dataSource: null,
+        dataSource: venta,
         columnAutoWidth: false,
         showColumnLines: false,
         showRowLines: true,
@@ -109,7 +118,7 @@ function vistaVentas() {
         },
         editing: {
             mode: "row",
-            allowAdding: true,
+            allowAdding: false,
             allowUpdating: true,
             allowDeleting: true,
             useIcons: true,

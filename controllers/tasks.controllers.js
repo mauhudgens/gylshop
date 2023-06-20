@@ -1,6 +1,6 @@
 const pool = require('../db')
 
-const getAllTask = async (req, res, next) => {
+const traerInventario = async (req, res, next) => {
     try {
         //throw new Error('Error en getAllTask')
         const result = await pool.query(`select * from public.productos`)
@@ -15,5 +15,5 @@ const getAllTask = async (req, res, next) => {
 }
 
 module.exports = {
-    getAllTask,
+    traerInventario,
 }
