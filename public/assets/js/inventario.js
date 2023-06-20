@@ -5,7 +5,7 @@ document.getElementById("id_vista_inventario").onclick = function () {
 
 function vistaInventario() {
 
-    $("#vista_general").html('<div class="">' +
+    $("#vista_general").html('<div class="container-ventas">' +
         // '<div class="container-img-description">' +
         // '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
         // '<div class="container-description">' +
