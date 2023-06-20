@@ -3,29 +3,77 @@ document.getElementById("id_vista_ventas").onclick = function () {
     vistaVentas()
 }
 
+var productos = [];
+var producto_encontrado;
+var tabla_venta;
+var form_description;
+
+if (producto_encontrado == null) {
+    producto_encontrado = [{
+        id: null,
+        nombre: null,
+        descripcion: null
+
+    }]
+}
+async function buscarProducto(codigo) {
+    console.log(codigo)
+    const res = await fetch(`http://localhost:3000/buscarProducto/${codigo}`, {
+    })
+    const data = await res.json()
+    console.log(data.rows[0])
+    productos.push(data.rows[0])
+    producto_encontrado = data.rows[0]
+    if (producto_encontrado != null) {
+        producto_encontrado = data.rows[0]
+        tabla_venta.option("dataSource", productos)
+        form_description.updateData("id", producto_encontrado.id);
+        form_description.updateData("nombre", producto_encontrado.nombre);
+        form_description.updateData("descripcion", producto_encontrado.descripcion);
+        $('#etiqueta_precio').text("$" + producto_encontrado.precio + ".00")
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Producto no encontrado',
+            showConfirmButton: true,
+        })
+        form_description.updateData("id", null);
+        form_description.updateData("nombre", null);
+        form_description.updateData("descripcion", null);
+        $('#etiqueta_precio').text("$0.00")
+
+    }
+
+    console.log(productos)
+}
+
 function vistaVentas() {
 
-    var venta = [{id: 1,
-    descripcion:"Jeans color azúl talla S",        
-    nombre: "Jeans",
-    precio: 500,
-    cantidad: 1}]
 
-    console.log(venta)
+
+    var venta = [{
+        id: 1,
+        descripcion: "Jeans color azúl talla S",
+        nombre: "Jeans",
+        precio: 500,
+        cantidad: 1
+    }]
+
 
     $("#vista_general").html('<div class="container-ventas">' +
         '<div class="container-img-description">' +
         '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
         '<div class="container-description">' +
         '<div id= "form_descripcion" ></div>' +
-        '<div class="container-precio-description"><p class="precio-descripcion">$500.00<p><div><div id="select_empleados"></div></div></div>' +
+        '<div class="container-precio-description"><div id="etiqueta_precio" class="precio-descripcion"></div><div class="container-codigo" id="codigo_producto"></div></div>' +
+        '<div id="select_empleados"></div></div>' +
         '</div>' +
         '</div>' +
         '<div id="tabla_productos"/><div id="button_general"/>' +
         '</div>');
 
 
-    $('#form_descripcion').dxForm({
+    form_description = $('#form_descripcion').dxForm({
         colCount: 1,
         labelLocation: "top",
         labelMode: "outside",
@@ -35,7 +83,7 @@ function vistaVentas() {
                 label: { text: "Id" },
                 visible: false,
                 editorOptions: {
-                    value: venta[0].id
+                    value: producto_encontrado.id
                 }
             },
             {
@@ -43,20 +91,26 @@ function vistaVentas() {
                 label: { text: "Producto" },
                 visible: true,
                 editorOptions: {
-                    value: venta[0].nombre
+                    value: producto_encontrado.nombre
                 }
             },
             {
-                dataField: "descripción",
+                dataField: "descripcion",
                 label: { text: "Descripción" },
                 alignment: 'center',
                 editorOptions: {
-                    value: venta[0].descripcion,
+                    value: producto_encontrado.descripcion,
                     height: 110
                 }
             },
         ],
     }).dxForm("instance");
+
+    $('#codigo_producto').dxTextBox({
+        onValueChanged: function (e) {
+            buscarProducto(e.value)
+        }
+    }).dxTextBox("instance");
 
     $('#select_empleados').dxSelectBox({
         placeholder: 'Selecciona el empleado',
@@ -68,13 +122,13 @@ function vistaVentas() {
         }
     }).dxSelectBox("instance");
 
-    $("#tabla_productos").dxDataGrid({
-        dataSource: venta,
+    tabla_venta = $("#tabla_productos").dxDataGrid({
+        dataSource: productos,
         columnAutoWidth: false,
         showColumnLines: false,
         showRowLines: true,
         visible: true,
-        height:300,
+        height: 300,
         // rowAlternationEnabled: true,
         showBorders: true,
         columns: [
@@ -137,6 +191,18 @@ function vistaVentas() {
                 cancel: "Cancelar",
                 ok: "Ok"
             },
+        },
+        onRowRemoved: function (info) {
+            form_description.updateData("id", null);
+            form_description.updateData("nombre", null);
+            form_description.updateData("descripcion", null);
+            $('#codigo_producto').dxTextBox({
+                value:null,
+                onValueChanged: function (e) {
+                    buscarProducto(e.value)
+                }
+            }).dxTextBox("instance");
+            $('#etiqueta_precio').text("$0.00")
         },
 
     }).dxDataGrid("instance")
