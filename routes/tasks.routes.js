@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { traerInventario,
     obtenerReportes,
     buscarProducto,
+    obtenerReportes
 } = require('../controllers/tasks.controllers')
 
 const router = Router();
