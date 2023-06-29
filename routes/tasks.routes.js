@@ -11,4 +11,4 @@ router.get('/obtenerReportes', obtenerReportes)
 router.get('/buscarProducto/:codigo', buscarProducto)
 
 
-module.exports = router;
+module.exports = router;git 
