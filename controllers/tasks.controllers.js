@@ -46,8 +46,29 @@ const buscarProducto = async (req, res, next) => {
 
 }
 
+const insertarVenta = async (req, res, next) => {
+    const { tipo, id_empleado,
+        total } = req.body
+    try {
+        const result = await pool.query('INSERT INTO relacional.datos_generales (fecha, tipo, id_empleado, total) VALUES (current_timestamp, $1, $2, $3) RETURNING *', [
+            tipo,
+            id_empleado,
+            total
+        ]);
+        // res.setHeader("Access-Control-Allow-Origin", "https://formularios.gis-code.com")
+        res.send({
+            rows: result.rows
+        })
+    } catch (error) {
+        res.send({
+            rows: next(error)
+        })
+    }
+}
+
 module.exports = {
     traerInventario,
     obtenerReportes,
-    buscarProducto
+    buscarProducto,
+    insertarVenta
 }

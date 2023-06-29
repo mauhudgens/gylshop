@@ -7,6 +7,8 @@ var productos = [];
 var producto_encontrado;
 var tabla_venta;
 var form_description;
+var codigo_producto;
+var response;
 
 if (producto_encontrado == null) {
     producto_encontrado = [{
@@ -22,15 +24,17 @@ async function buscarProducto(codigo) {
     })
     const data = await res.json()
     console.log(data.rows[0])
-    productos.push(data.rows[0])
     producto_encontrado = data.rows[0]
     if (producto_encontrado != null) {
+        productos.push(data.rows[0])
         producto_encontrado = data.rows[0]
         tabla_venta.option("dataSource", productos)
         form_description.updateData("id", producto_encontrado.id);
         form_description.updateData("nombre", producto_encontrado.nombre);
         form_description.updateData("descripcion", producto_encontrado.descripcion);
-        $('#etiqueta_precio').text("$" + producto_encontrado.precio + ".00")
+        form_description.updateData("descripcion", producto_encontrado.descripcion);
+        codigo_producto.option('value', "")
+        $('#etiqueta_precio').text("Total: $" + producto_encontrado.precio + ".00")
     } else {
         Swal.fire({
             icon: 'error',
@@ -40,11 +44,37 @@ async function buscarProducto(codigo) {
         form_description.updateData("id", null);
         form_description.updateData("nombre", null);
         form_description.updateData("descripcion", null);
+        codigo_producto.option('value', "")
         $('#etiqueta_precio').text("$0.00")
 
     }
 
     console.log(productos)
+}
+
+async function insertarVenta(data) {
+    // const res = await fetch("https://fazt-node-deploy.herokuapp.com/insertar_datos_generales", {
+    const res = await fetch("https://appgiscode-production.up.railway.app/insertarVenta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+    response = await res.json();
+    if (response.rows) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Datos guardados correctamente!',
+        })
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops!',
+            text: 'Ocurrió un error al guardar los datos!',
+        })
+    }
+
+    buscarDatosPorProyecto(valor_proyecto, tabla_formulario, formulario)
 }
 
 function vistaVentas() {
@@ -65,11 +95,15 @@ function vistaVentas() {
         '<div class="container-img"><img  style="width:250px; height:250px; margin-top:1.3em;" src="../assets/img/logo_gyl.jpg"></img></div>' +
         '<div class="container-description">' +
         '<div id= "form_descripcion" ></div>' +
-        '<div class="container-precio-description"><div id="etiqueta_precio" class="precio-descripcion"></div><div class="container-codigo" id="codigo_producto"></div></div>' +
+        '<div class="container-precio-description"><div class="container-codigo" id="codigo_producto"></div><div id="etiqueta_precio" class="precio-descripcion"></div></div>' +
         '<div id="select_empleados"></div></div>' +
         '</div>' +
+        '<div class="container-btn-finalizar">' +
+        '<div style="margin-right:1em;" id="button_cancelar"></div>' +
+        '<div id="button_finalizar"></div>' +
         '</div>' +
-        '<div id="tabla_productos"/><div id="button_general"/>' +
+        '</div>' +
+        '<div id="tabla_productos"></div>' +
         '</div>');
 
 
@@ -106,9 +140,12 @@ function vistaVentas() {
         ],
     }).dxForm("instance");
 
-    $('#codigo_producto').dxTextBox({
+    codigo_producto = $('#codigo_producto').dxTextBox({
+        value: "",
         onValueChanged: function (e) {
-            buscarProducto(e.value)
+            if (e.value != "") {
+                buscarProducto(e.value)
+            }
         }
     }).dxTextBox("instance");
 
@@ -197,7 +234,7 @@ function vistaVentas() {
             form_description.updateData("nombre", null);
             form_description.updateData("descripcion", null);
             $('#codigo_producto').dxTextBox({
-                value:null,
+                value: null,
                 onValueChanged: function (e) {
                     buscarProducto(e.value)
                 }
@@ -207,12 +244,31 @@ function vistaVentas() {
 
     }).dxDataGrid("instance")
 
-    $("#button_agregar").dxButton({
-        text: "Agregar Registro",
-        type: "default",
+    $("#button_finalizar").dxButton({
+        text: "TERMINAR VENTA",
+        type: "success",
         visible: true,
         validationGroup: "groupName",
         onClick: function () {
+            insertarVenta()
+    
+        }
+});
+
+    $("#button_cancelar").dxButton({
+        text: "CANCELAR",
+        type: "danger",
+        visible: true,
+        validationGroup: "groupName",
+        onClick: function () {
+            productos = []
+            tabla_venta.option("dataSource", productos)
+            form_description.updateData("id", null);
+            form_description.updateData("nombre", null);
+            form_description.updateData("descripcion", null);
+            form_description.updateData("descripcion", null);
+            codigo_producto.option('value', "")
+            $('#etiqueta_precio').text("Total: $0.00")
         }
     });
 
